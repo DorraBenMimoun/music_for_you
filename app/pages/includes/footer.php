@@ -1,17 +1,17 @@
 <footer>
         <div class="footer-div">
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Music</a></li>
-                <li><a href="">About us</a></li>
-                <li><a href="">Contact us</a></li>
+                <li><a href="<?=ROOT?>/">Home</a></li>
+                <li><a href="<?=ROOT?>/musics">Musics</a></li>
+                <li><a href="<?=ROOT?>/about">About us</a></li>
+                <li><a href="<?=ROOT?>/contact">Contact us</a></li>
                 <?php if(!logged_in()):?>
                 <li><a href="<?=ROOT?>/login">Login</a></li>
                 <?php endif;?>
             </ul>
         </div>
         <div class="footer-div">
-            <form action="">
+            <form action="<?=ROOT?>/search" >
                 <div class="form-group">
                     <input class="form-control" type="text" placeholder="Search for music" name="find">
                     <button class="btn">Search</button>
@@ -36,7 +36,7 @@
         </div>
     </footer>
 
-    <script src="<?=ROOT?>/assets/js/index.js?22" ></script>
+    <script src="<?=ROOT?>/assets/js/index.js" ></script>
 
 
 

@@ -12,6 +12,8 @@
       
         if (!empty($row)) 
         {
+            echo "hello22";
+            
             if(password_verify($_POST['password'], $row['password']))
             {
                 echo "hello";

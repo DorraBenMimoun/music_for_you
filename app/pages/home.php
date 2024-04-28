@@ -5,94 +5,22 @@
     <div class="section-title">Featured</div>
 
     <section class="content">
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
 
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
+        <?php
+         $rows = db_query(("select * from musics order by id desc"));
+        ?>
 
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
-        <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card --> <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card --> <!-- start music card -->
-        <div class="music-card">
-            <div style="overflow:hidden;">
-                <a href=""> <img src="<?=ROOT?>/assets/images/image1.jpg" alt=""></a>
-            </div>
-            <div class="card-content">
-                <div class="card-title">Song title</div>
-                <div class="card-subtitle">Artist name</div>
-            </div>
-        </div>
-        <!-- end music card -->
+        <?php if(!empty($rows)): ?>
+
+        <?php foreach($rows as $row): ?>
+            <?php include page('includes/song')?>
+        
+        <?php endforeach; ?>
+        <?php else: ?>
+            <div class="m-2" >No songs found</div>
+        <?php endif; ?>
+
+        
 
     </section>
 

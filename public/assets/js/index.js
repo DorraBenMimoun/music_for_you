@@ -25,7 +25,6 @@ var links=document.querySelector("header").querySelectorAll(".nav-item");
 for( var i =0; i < links.length ; i++ )
 {
 
-
     if(links[i].children[0].href == window.location.href || links[i].children[0].href +"/" == window.location.href)
     {
         links[i].classList.add("active");

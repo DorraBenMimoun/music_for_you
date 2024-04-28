@@ -140,4 +140,43 @@ function authenticate($row)
     $_SESSION['USER'] = $row;
 }
 
+function str_to_url($url)
+{
+    //supprime toutes les apostrophes de la chaîne
+    $url = str_replace("'","", $url);
+    //Remplaceme les caractères non-alphanumériques
+    $url = preg_replace('~[^\\pL0-9_]+~u','-', $url);
+    //supprime les tirets du début et de la fin de la chaîne
+    $url = trim($url,"-");
+    // translittérer les caractères non-ASCII en ASCI
+    $url = iconv("utf-8","us-ascii//TRANSLIT", $url);
+    $url = strtolower($url);
+    $url = preg_replace('~[^-a-z0-9_]+~','', $url);
 
+    return $url;
+}
+
+function get_category($id)
+{
+    $query = " select category from categories where id = :id limit 1" ;
+    $row = db_query_one($query,['id'=>$id]);
+    if (!empty($row['category']))
+    {
+        return $row['category'];
+    }
+    return "Unknown";
+}
+function get_artist($id)
+{
+    $query = " select name from artists where id = :id limit 1" ;
+    $row = db_query_one($query,['id'=>$id]);
+    if (!empty($row['name']))
+    {
+        return $row['name'];
+    }
+    return "Unknown";
+}
+function esc($str)
+{
+    return nl2br(htmlspecialchars($str));
+}

@@ -10,6 +10,7 @@ $URL=$_GET['url'] ;
 
 
 $URL = explode("/", $URL);
+
 /**page is a function that exist in app/core/function.php */
 $file=page(strtolower($URL[0]));
 

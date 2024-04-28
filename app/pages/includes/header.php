@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music For You</title>
+    <title> <?=ucfirst($URL[0])?> - Music For You</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css?22">
 </head>
 
 <body>
@@ -36,24 +36,24 @@
             </div>
             <div class="main-nav">
                 <div class="nav-item"><a href="<?=ROOT?>/">Home</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/music">Music</a></div>
-                <div class="nav-item dropdown">
-                    <a href="">Categories</a>
+                <div class="nav-item"><a href="<?=ROOT?>/musics">Musics</a></div>
+                <!--<div class="nav-item dropdown">
+                    <a href="#">Categories</a>
                     <div class="dropdown-list hide">
                         <div class="nav-item"><a href="">Country</a></div>
                         <div class="nav-item"><a href="">Pop</a></div>
                         <div class="nav-item"><a href="">R&B</a></div>
 
                     </div>
-                </div>
+                </div>-->
                 <div class="nav-item"><a href="<?=ROOT?>/artists">Artists</a></div>
                 <div class="nav-item"><a href="<?=ROOT?>/about">About us</a></div>
                 <div class="nav-item"><a href="<?=ROOT?>/contact">Contact us</a></div>
                 <?php if(logged_in()):?>
                 <div class="nav-item dropdown">
-                    <a href="">Hi,<?=user('username')?></a>
+                    <a href="#">Hi,<?=user('username')?></a>
                     <div class="dropdown-list hide">
-                        <div class="nav-item"><a href="<?=ROOT?>/profile">Profile</a></div>
+                        <div class="nav-item"><a href="<?=ROOT?>/profile/<?=user('id')?>">Profile</a></div>
                         <div class="nav-item"><a href="<?=ROOT?>/admin">Admin</a></div>
                         <div class="nav-item"><a href="<?=ROOT?>/logout">Logout</a></div>
 

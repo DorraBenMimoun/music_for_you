@@ -21,8 +21,11 @@ switch ($section) {
     case 'artists':
         require page('admin/artists');
         break;
-    case 'music':
-        require page('admin/music');
+    case 'musics':
+        require page('admin/musics');
+        break;
+    case 'artist':
+        require page('admin/artist');
         break;
 
     default:
