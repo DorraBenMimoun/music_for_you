@@ -2,11 +2,12 @@
 
 function show($stuff)
 {
-    echo "<pres";
+    echo "<pre>";
     print_r($stuff);
     echo "</pre>";
 }
 
+// Returns the path to a specific page file in the 'pages' directory.
 function page($file)
 {
     return "../app/pages/" . $file . ".php";
@@ -14,13 +15,14 @@ function page($file)
 
 function db_connect()
 {
+    // Connect to database
     $string = "mysql:hostname=localhost;dbname=music_for_you";
     $con = new PDO($string, "root", "");
     return $con;
 }
 
 function db_query($query, $data = array())
-{
+{   
     $con = db_connect();
     $stm = $con->prepare($query);
     if ($stm) {
@@ -113,6 +115,7 @@ function logged_in()
     {
         return true;
     }
+
     return false;
 }
 function is_admin()
@@ -125,7 +128,26 @@ function is_admin()
     }
     return false;
 }
+function is_manager()
+{
 
+    if(!empty($_SESSION['USER']['role']) && $_SESSION['USER']['role']=='manager')
+
+    {
+        return true;
+    }
+    return false;
+}
+function is_user()
+{
+
+    if(!empty($_SESSION['USER']['role']) && $_SESSION['USER']['role']=='user')
+
+    {
+        return true;
+    }
+    return false;
+}
 function user($column)
 {
     if(!empty($_SESSION['USER'][$column]) )
@@ -137,6 +159,7 @@ function user($column)
 }
 function authenticate($row)
 {
+
     $_SESSION['USER'] = $row;
 }
 
@@ -179,4 +202,22 @@ function get_artist($id)
 function esc($str)
 {
     return nl2br(htmlspecialchars($str));
+}
+
+require_once 'C:\xampp\htdocs\music_for_you\vendor\autoload.php';
+function getAudioDuration($file) {
+    $getID3 = new getID3;
+    $fileInfo = $getID3->analyze($file);
+    if (isset($fileInfo['playtime_seconds'])) {
+        return $fileInfo['playtime_seconds'];
+    }
+    return false;
+}
+function formatDuration($seconds) {
+    $minutes = floor($seconds / 60);
+    $remainingSeconds = $seconds % 60;
+    $decimal = $remainingSeconds / 60;  // Convertir les secondes en fraction de minute
+    $totalMinutes = $minutes + $decimal;  // Additionner les minutes et la fraction décimale
+
+    return round($totalMinutes, 2);  // Arrondir à deux chiffres décimaux
 }

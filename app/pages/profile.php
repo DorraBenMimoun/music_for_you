@@ -38,30 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
             }
         }
     }
-    if (empty($_POST["role"])) {
-
-        $errors['role'] = "a role is required";
-    }
+ 
     if (empty($errors)) {
         $values = [];
         $values['username'] = trim($_POST['username']);
         $values['email'] = trim($_POST['email']);
-        $values['role'] = trim($_POST['role']);
         $values['id'] = $id;
 
 
-        $query = "update users set email = :email, username = :username, role= :role where id= :id limit 1";
+        $query = "update users set email = :email, username = :username where id= :id limit 1";
 
         if (!empty($_POST['password'])) {
-            $query = "update users set email = :email, password= :password, username = :username, role= :role where id= :id limit 1";
+            $query = "update users set email = :email, password= :password, username = :username where id= :id limit 1";
             $values['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         }
 
         db_query($query, $values);
         message("user edited successfully");
-        redirect('admin/users');
+        
+
 
     }
+    
 }
 
 
@@ -84,15 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
             <?php if (!empty($errors['email'])): ?>
                 <small class="text-danger"><?= $errors['email'] ?></small>
             <?php endif; ?>
-            <select name="role" id="role" class="form-select my-1">
-                <option value="">--Select Role--</option>
-                <option <?= set_select('role', 'user', $row['role']) ?> value="user">User</option>
-                <option <?= set_select('role', 'admin', $row['role']) ?> value="admin">Admin</option>
-            </select>
-
-            <?php if (!empty($errors['role'])): ?>
-                <small class="text-danger"><?= $errors['role'] ?></small>
-            <?php endif; ?>
+           
             <input class="form-control my-1" type="password" name="password"
                 placeholder="Password (leave empty to keep old one)" value="<?= set_value('password') ?>"
                 placeholder="Password">

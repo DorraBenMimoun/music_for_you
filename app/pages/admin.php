@@ -1,4 +1,6 @@
+
 <?php
+
 if (!is_admin()) {
     message("Only admins can access the admin page");
     redirect('login');
@@ -10,22 +12,10 @@ $action = $URL[2] ?? null;
 $id = $URL[3] ?? null;
 switch ($section) {
     case 'dashboard':
-        require page('admin/dashboard');
+        require page('admin/users');
         break;
     case 'users':
         require page('admin/users');
-        break;
-    case 'categories':
-        require page('admin/categories');
-        break;
-    case 'artists':
-        require page('admin/artists');
-        break;
-    case 'musics':
-        require page('admin/musics');
-        break;
-    case 'artist':
-        require page('admin/artist');
         break;
 
     default:

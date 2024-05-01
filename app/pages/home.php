@@ -1,4 +1,10 @@
 <?php require page('includes/header'); ?>
+<?php 
+   /* if (logged_in()) {
+        message(" login successful");
+    }*/
+
+?>
     <section>
         <img class="hero" src="<?=ROOT?>/assets/images/th.jpg" alt=""></a>
     </section>

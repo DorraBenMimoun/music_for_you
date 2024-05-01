@@ -4,21 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> <?=ucfirst($URL[0])?> - Music For You</title>
+    <title><?=ucfirst($URL[0])?> -Music For You</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
 </head>
 
 <body>
+    <style>
+        header a{
+            color:white;
+        }
+        .dropdown-list{
+            background-color: #444;
+        }
+    </style>
 
-    <header>
+    <header style="background-color:#3e344e; color:white;" >
         <div class="logo-holder">
-            <a href="<?=ROOT?>/"><img src="<?=ROOT?>/assets/images/logo.jpg" alt=""></a></a>
+            <a href=""><img src="<?=ROOT?>/assets/images/logo.jpg" alt=""></a></a>
         </div>
         <div class="header-div">
             <div class="main-title">
-                MUISC WEBSITE
+                Manager AREA
                 <div class="socials">
                     <svg width="25" height="25" fill="blue" class="bi bi-facebook" viewBox="0 0 16 16">
                         <path
@@ -34,48 +42,26 @@
                     </svg>
                 </div>
             </div>
-            <div class="main-nav float-end m-5">
-                <div class="nav-item"><a href="<?=ROOT?>/">Home</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/musics">Musics</a></div>
-                <!--<div class="nav-item"><a href="<?=ROOT?>/playlists">Playlists</a></div>-->
-
-                <!--<div class="nav-item dropdown">
-                    <a href="#">Categories</a>
-                    <div class="dropdown-list hide">
-                        <div class="nav-item"><a href="">Country</a></div>
-                        <div class="nav-item"><a href="">Pop</a></div>
-                        <div class="nav-item"><a href="">R&B</a></div>
-
-                    </div>
-                </div>-->
-                <div class="nav-item"><a href="<?=ROOT?>/artists">Artists</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/about">About us</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/contact">Contact us</a></div>
-                <?php if(logged_in()):?>
+            <div class="main-nav float-end m-5 ">
+                <div class="nav-item"><a href="<?=ROOT?>/manager">Dashboard</a></div>
+                <div class="nav-item"><a href="<?=ROOT?>/manager/musics">Musics</a></div>
+                <div class="nav-item"><a href="<?=ROOT?>/manager/categories">Categories</a></div>
+          
+                <div class="nav-item"><a href="<?=ROOT?>/manager/artists">Artists</a></div>
                 <div class="nav-item dropdown">
                     <a href="#">Hi,<?=user('username')?></a>
                     <div class="dropdown-list hide">
-                        <?php if(is_user()):?>
-                        <div class="nav-item"><a href="<?=ROOT?>/profile/<?=user('id')?>">Profile</a></div>
-                        <?php endif;?>
-                        <?php if(is_admin()):?>
-                            <div class="nav-item"><a href="<?=ROOT?>/admin">Admin</a></div>
-                        <?php endif;?>
-                        <?php if(is_manager()):?>
-                            <div class="nav-item"><a href="<?=ROOT?>/manager">Manager</a></div>
-                        <?php endif;?>
-
-
+                        <div class="nav-item"><a href="<?=ROOT?>">Website</a></div>
                         <div class="nav-item"><a href="<?=ROOT?>/logout">Logout</a></div>
 
                     </div>
                 </div>
-                <?php else: ?>
-                    <div class="nav-item"  ><a href="<?=ROOT?>/login">Login</a></div>
-
-                <?php endif;?>
 
 
             </div>
         </div>
     </header>
+
+<?php if(message()):?>
+    <div class="alert" ><?=message('',true)?></div>
+<?php endif;?>

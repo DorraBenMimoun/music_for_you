@@ -1,0 +1,19 @@
+{
+    "name": "dorra/music_for_you",
+    "description": "Music_for_you project",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Dorra\\MusicForYou\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "DorraBenMimoun",
+            "email": "dorrabenmimoun@gmail.com"
+        }
+    ],
+    "require": {
+        "james-heinrich/getid3": "^1.9"
+    }
+}

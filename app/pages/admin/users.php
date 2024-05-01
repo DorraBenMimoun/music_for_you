@@ -175,8 +175,9 @@ if ($action == 'add') {
                 <?php endif; ?>
                 <select name="role" id="role" class="form-select my-1">
                     <option value="">--Select Role--</option>
-                    <option <?= set_select('role', 'user') ?> value="user">User</option>
                     <option <?= set_select('role', 'admin') ?> value="admin">Admin</option>
+                    <option <?= set_select('role', 'manager') ?> value="manager">Manager</option>
+
                 </select>
                 <?php if (!empty($errors['role'])): ?>
                     <small class="text-danger"><?= $errors['role'] ?></small>
@@ -217,8 +218,9 @@ if ($action == 'add') {
                     <?php endif; ?>
                     <select name="role" id="role" class="form-select my-1">
                         <option value="">--Select Role--</option>
-                        <option <?= set_select('role', 'user', $row['role']) ?> value="user">User</option>
                         <option <?= set_select('role', 'admin', $row['role']) ?> value="admin">Admin</option>
+                        <option <?= set_select('role', 'manager', $row['role']) ?> value="manager">Manager</option>
+
                     </select>
 
                     <?php if (!empty($errors['role'])): ?>
@@ -280,12 +282,12 @@ if ($action == 'add') {
         </div>
     <?php else: ?>
         <?php
-        $query = "select * from users order by id desc ";
+        $query = "select * from users where role != 'user' order by id desc ";
         $rows = db_query($query);
         ?>
 
 
-        <h3>users
+        <h3>Users
             <a href="<?= ROOT ?>/admin/users/add">
 
                 <button class=" float-end btn bg-purpule">Add new</button>

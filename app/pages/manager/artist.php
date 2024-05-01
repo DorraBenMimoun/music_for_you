@@ -1,4 +1,4 @@
-<?php require page('includes/admin-header'); ?>
+<?php require page('includes/manager-header'); ?>
 <center>
     <div class="section-title">Artist Profile</div>
 </center>
@@ -54,4 +54,4 @@
 
 </section>
 
-<?php require page('includes/admin-footer'); ?>
+<?php require page('includes/manager-footer'); ?>

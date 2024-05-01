@@ -42,17 +42,11 @@
                     </svg>
                 </div>
             </div>
-            <div class="main-nav">
-                <div class="nav-item"><a href="<?=ROOT?>/admin">Dashboard</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/admin/users">Users</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/admin/musics">Musics</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/admin/categories">Categories</a></div>
-          
-                <div class="nav-item"><a href="<?=ROOT?>/admin/artists">Artists</a></div>
-                <div class="nav-item dropdown">
+            <div class="main-nav float-end m-5">
+            
+                <div class="nav-item dropdown  ">
                     <a href="#">Hi,<?=user('username')?></a>
                     <div class="dropdown-list hide">
-                        <div class="nav-item"><a href="<?=ROOT?>/profile">Profile</a></div>
                         <div class="nav-item"><a href="<?=ROOT?>">Website</a></div>
                         <div class="nav-item"><a href="<?=ROOT?>/logout">Logout</a></div>
 

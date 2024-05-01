@@ -1,4 +1,11 @@
 <?php
+
+if (!is_user()) {
+    message("Only users who have an account can download music");
+    redirect('login');
+}
+else
+{ 
     $slug =$URL[1] ?? null;
     $query = "select * from musics where slug = :slug limit 1";
 
@@ -21,3 +28,4 @@
     }
 
 echo "song not found";
+}
