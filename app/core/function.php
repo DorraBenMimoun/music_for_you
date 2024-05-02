@@ -181,11 +181,21 @@ function str_to_url($url)
 
 function get_category($id)
 {
-    $query = " select category from categories where id = :id limit 1" ;
+    $query = " select name from categories where id = :id limit 1" ;
     $row = db_query_one($query,['id'=>$id]);
-    if (!empty($row['category']))
+    if (!empty($row['name']))
     {
-        return $row['category'];
+        return $row['name'];
+    }
+    return "Unknown";
+}
+function get_user_name($id)
+{
+    $query = " select username from users where id = :id limit 1" ;
+    $row = db_query_one($query,['id'=>$id]);
+    if (!empty($row['username']))
+    {
+        return $row['username'];
     }
     return "Unknown";
 }
@@ -196,6 +206,28 @@ function get_artist($id)
     if (!empty($row['name']))
     {
         return $row['name'];
+    }
+    return "Unknown";
+}
+function get_music($id)
+{
+    $query = " select * from musics where id = :id limit 1" ;
+    $rows = db_query_one($query,['id'=>$id]);
+    if (!empty($rows))
+    {
+
+        return $rows;
+    }
+    return "Unknown";
+}
+function get_playlist($id)
+{
+    $query = " select * from playlists where id = :id limit 1" ;
+    $rows = db_query_one($query,['id'=>$id]);
+    if (!empty($rows))
+    {
+
+        return $rows;
     }
     return "Unknown";
 }

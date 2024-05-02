@@ -43,14 +43,16 @@
                 </div>
             </div>
             <div class="main-nav float-end m-5">
-            
-                <div class="nav-item dropdown  ">
-                    <a href="#">Hi,<?=user('username')?></a>
-                    <div class="dropdown-list hide">
-                        <div class="nav-item"><a href="<?=ROOT?>">Website</a></div>
-                        <div class="nav-item"><a href="<?=ROOT?>/logout">Logout</a></div>
-
-                    </div>
+        
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Hi,<?= user('username') ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?= ROOT ?>">Website</a></li>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>/logout">Logout</a></li>
+                    </ul>
                 </div>
 
 

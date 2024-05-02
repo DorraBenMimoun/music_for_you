@@ -1,4 +1,7 @@
-<?php require page('includes/header'); ?>
+<?php
+ob_start();
+
+require page('includes/header'); ?>
 <center>
     <div class="section-title">Now Playing</div>
 </center>

@@ -1,4 +1,5 @@
 <?php
+ /*-- ---------ADD ------------ --*/
 
 if ($action == 'add') {
 
@@ -16,18 +17,14 @@ if ($action == 'add') {
         //image
         if (!empty($_FILES['image']['name'])) {
 
-            $folder = "uploads/";
+            $folder = "uploads/artists/";
             if (!file_exists($folder)) {
                 mkdir($folder, 077, true);
                 file_put_contents($folder . "index.php", "");
-
             }
             $allowed = ['images/jpeg', 'images/png'];
-            echo $_FILES['image']['error'];
             //&& in_array($_FILES['image']['type'], $allowed)
             if ($_FILES['image']['error'] == 0) {
-
-
                 $destination = $folder . $_FILES['image']['name'];
 
                 move_uploaded_file($_FILES['image']['tmp_name'], $destination);
@@ -35,7 +32,6 @@ if ($action == 'add') {
             } else {
 
                 $errors['image'] = "Image no valid. Allowed types are " . implode(",", $allowed);
-
             }
 
         } else {
@@ -48,8 +44,6 @@ if ($action == 'add') {
             $values['image'] = $destination;
             $values['user_id'] = user('id');
 
-
-
             $query = "insert into artists(name,bio,image,user_id) values(:name,:bio,:image,:user_id)";
             db_query($query, $values);
             message("name created successfully");
@@ -58,6 +52,8 @@ if ($action == 'add') {
         }
     }
 } else
+ /*-- ---------EDIT ------------ --*/
+
     if ($action == 'edit') {
         $query = "select * from artists where id = :id limit 1";
         $row = db_query_one($query, ['id' => $id]);
@@ -79,15 +75,13 @@ if ($action == 'add') {
 
             if (!empty($_FILES['image']['name'])) {
 
-                $folder = "uploads/";
+                $folder = "uploads/artists/";
                 if (!file_exists($folder)) {
                     mkdir($folder, 077, true);
                     file_put_contents($folder . "index.php", "");
 
                 }
                 $allowed = ['images/jpeg', 'images/png'];
-
-
                 if ($_FILES['image']['error'] == 0) {
 
                     $destination = $folder . $_FILES['image']['name'];
@@ -98,18 +92,15 @@ if ($action == 'add') {
                         unlink($row['image']);
                     }
                 } else {
-
                     $errors['name'] = "Image no valid. Allowed types are " . implode(",", $allowed);
-
                 }
-
             }
 
             if (empty($errors)) {
                 $values = [];
                 $values['name'] = trim($_POST['name']);
                 $values['user_id'] = user('id');
-                $values['bio'] = trim($_POST['bio']);
+                $values['bio'] = trim($_POST['bio']) ;
                 $values['id'] = $id;
                 $query = "update artists set  name = :name, user_id= :user_id, bio= :bio where id= :id limit 1";
 
@@ -126,10 +117,9 @@ if ($action == 'add') {
                 redirect('manager/artists');
             }
         }
-
-
-
     } else
+  /*-- ---------DELETE ------------ --*/
+
         if ($action == 'delete') {
             $query = "select * from artists where id = :id limit 1";
             $row = db_query_one($query, ['id' => $id]);
@@ -138,11 +128,8 @@ if ($action == 'add') {
                 $errors = [];
 
                 if (empty($errors)) {
-
-
                     $values = [];
                     $values['id'] = $id;
-
 
                     $query = "delete from artists where id= :id limit 1";
 
@@ -153,18 +140,14 @@ if ($action == 'add') {
                     }
                     message("name deleted successfully");
                     redirect('manager/artists');
-
                 }
             }
         }
-
-
-
 ?>
 
 
-
 <?php require page('includes/manager-header') ?>
+    <!-- ---------ADD ------------ -->
 
 <section class="manager-content" style="min-height:200px;">
     <?php if ($action == 'add'): ?>
@@ -173,22 +156,26 @@ if ($action == 'add') {
             <form action="" method="post" enctype="multipart/form-data">
                 <h3>Add new Artist</h3>
 
-                <input class="form-control my-1" type="text" name="name" value="<?= set_value('name') ?>"
-                    placeholder="Artist name">
-                <?php if (!empty($errors['name'])): ?>
-                    <small class="text-danger"><?= $errors['name'] ?></small>
-                <?php endif; ?>
+               <div>
+                 <input class="form-control my-1" type="text" name="name" value="<?= set_value('name') ?>"
+                     placeholder="Artist name">
+                 <?php if (!empty($errors['name'])): ?>
+                     <small class="text-danger"><?= $errors['name'] ?></small>
+                 <?php endif; ?>
+               </div>
                 <div>Artist Image : </div>
 
-                <input type="file" class="form-control my-1" name="image">
-                <?php if (!empty($errors['image'])): ?>
-                    <small class="text-danger"><?= $errors['image'] ?></small>
-                <?php endif; ?>
+             <div>
+                   <input type="file" class="form-control my-1" name="image">
+                   <?php if (!empty($errors['image'])): ?>
+                       <small class="text-danger"><?= $errors['image'] ?></small>
+                   <?php endif; ?>
+             </div>
                 <label>Artist Bio : </label>
-                <textarea name="bio" id="bio" rows="10" class="form-control my-1"><?= set_value('bio') ?></textarea>
-                <?php if (!empty($errors['image'])): ?>
-                    <small class="text-danger"><?= $errors['image'] ?></small>
-                <?php endif; ?>
+                <div>
+                    <textarea name="bio" id="bio" rows="10" class="form-control my-1"><?= set_value('bio') ?></textarea>
+                  
+                </div>
 
                 <button class="btn bg-orange">Save</button>
                 <a href="<?= ROOT ?>/manager/artists">
@@ -196,10 +183,9 @@ if ($action == 'add') {
                 </a>
             </form>
         </div>
+<!-- ---------EDIT ------------ -->
+
     <?php elseif ($action == 'edit'): ?>
-
-
-
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post" enctype="multipart/form-data">
                 <h3>Edit Artist</h3>
@@ -232,6 +218,8 @@ if ($action == 'add') {
                 <?php endif; ?>
             </form>
         </div>
+ <!-- ---------DELETE ------------ -->
+
     <?php elseif ($action == 'delete'): ?>
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post">
@@ -259,19 +247,44 @@ if ($action == 'add') {
             </form>
         </div>
     <?php else: ?>
+
         <?php
-        $query = "select * from artists order by id desc ";
-        $rows = db_query($query);
+        $searchTerm = trim($_GET['search'] ?? '');
+        $rows = [];
+        $errors = [];
+        $params = [];
+
+        $query = "select * from artists";
+        if (isset($_GET['submit_search'])) {
+            if (!empty($searchTerm)) {
+                $query .= " where name LIKE :searchTerm ";
+                $params = ['searchTerm' => "%$searchTerm%"];
+            } else {
+                $errors['search'] = "Search term is required.";
+
+            }
+        }
+
+        $rows = db_query($query, $params);
         ?>
-
-
+        <!-- Search Form -->
+        <form action="" method="get" class="search-form">
+            <div class="form-group">
+                <input class="form-control m-1" type="text" name="search" placeholder="Search artists by name"
+                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                <button class="btn m-1" type="submit" name="submit_search">Search</button>
+            </div>
+            <?php if (!empty($errors['search'])): ?>
+                <p class="text-danger"><?= $errors['search'] ?></p>
+            <?php endif; ?>
+        </form>
         <h3>Artists
             <a href="<?= ROOT ?>/manager/artists/add">
 
                 <button class=" float-end btn bg-purpule">Add new</button>
             </a>
         </h3>
-        <table class="table">
+        <table class="table text-center">
             <tr>
                 <th>ID</th>
                 <th>Artist</th>
@@ -306,14 +319,14 @@ if ($action == 'add') {
                         </td>
                     </tr>
                 <?php endforeach ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4">
+                        <p class="text-danger text-center">No artist found.</p>
+                    </td>
+                </tr>
             <?php endif; ?>
-
         </table>
-
     <?php endif; ?>
-
-
-
-
 </section>
 <?php require page('includes/manager-footer'); ?>

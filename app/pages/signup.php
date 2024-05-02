@@ -17,6 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = "email is not valid";
 
+        } else {
+            // Vérifier si l'email existe déjà dans la base de données
+            $query = "select * from users where email = :email";
+            $existingEmail = db_query_one($query, ['email' => trim($_POST['email'])]);
+            if ($existingEmail) {
+                $errors['email'] = "This email is already registered";
+            }
         }
     }
     if (empty($_POST["password"])) {
@@ -46,24 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         db_query($query, $values);
         //message("user created successfully");
         // Clear the POST data to reset the form fields
-        
+
         $value['email'] = trim($_POST['email']);
 
         $query1 = "select * from users where email = :email";
         $row = db_query_one($query1, $value);
         authenticate($row);
         redirect('home');
-
-
-
     }
-
 }
-
 ?>
 
 <?php require page('includes/header'); ?>
-
 
 <section class="content">
     <div class="login-holder">
@@ -97,9 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <p class="">I have an account <a href="<?= ROOT ?>/login">Login</a></p>
             <button class=" my-1 btn bg-blue">Sign Up</button>
         </form>
-
     </div>
-
-
 </section>
 <?php require page('includes/footer'); ?>

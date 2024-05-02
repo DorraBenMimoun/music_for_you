@@ -7,8 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $query = "select * from users where email = :email";
     $row = db_query_one($query, $values);
 
-
-
     if (!empty($row)) {
 
         if (password_verify($_POST['password'], $row['password'])) {
@@ -16,23 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($row['role'] == "admin")
                 redirect('admin');
             else
-            if($row['role'] == "manager")
-                redirect('manager');
-            else
-            redirect('home');
+                if ($row['role'] == "manager")
+                    redirect('manager');
+                else
+                    redirect('home');
         }
-
-
-
     }
     message("Wrong email or password");
-
 }
 
 ?>
 
 <?php require page('includes/header'); ?>
-
 
 <section class="content">
     <div class="login-holder">
@@ -52,11 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <!-- Sign Up link -->
             <p class="text-center">Don't have an account? <a href="<?= ROOT ?>/signup">Sign Up</a></p>
             <button class=" my-1 btn bg-blue">Login</button>
-
         </form>
-
     </div>
-
-
 </section>
 <?php require page('includes/footer'); ?>

@@ -1,5 +1,5 @@
-
 <?php
+ob_start();
 
 if (!is_manager()) {
     message("Only admins can access the manager page");
@@ -14,7 +14,7 @@ switch ($section) {
     case 'dashboard':
         require page('manager/musics');
         break;
-    
+
     case 'categories':
         require page('manager/categories');
         break;

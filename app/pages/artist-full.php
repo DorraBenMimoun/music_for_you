@@ -10,7 +10,7 @@
         <label>Artist Bio : </label>
         <div><?= esc($row['bio']) ?></div>
         <div>Artist Songs : </div>
-        <div style="display: flex; flex:flex-wrap; justify-content: center;" >
+        <div style="display: flex; flex:flex-wrap; justify-content: center;">
 
             <?php
             $query = "select * from musics where artist_id = :artist_id  order by id desc limit 24";

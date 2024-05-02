@@ -1,4 +1,5 @@
 <?php
+ /*-- ---------ADD ------------ --*/
 
 if ($action == 'add') {
 
@@ -6,26 +7,28 @@ if ($action == 'add') {
         $errors = [];
 
         //data validation
-        if (empty($_POST["category"])) {
-            $errors['category'] = "a category is required";
+        if (empty($_POST["name"])) {
+            $errors['name'] = "a name is required";
         } else {
-            if (!preg_match("/^[a-zA-Z \&\-]+$/", $_POST['category'])) {
-                $errors['category'] = "a category can only have letters and spaces";
+            if (!preg_match("/^[a-zA-Z \&\-]+$/", $_POST['name'])) {
+                $errors['name'] = "a name can only have letters and spaces";
 
             }
         }
         if (empty($errors)) {
             $values = [];
-            $values['category'] = trim($_POST['category']);
+            $values['name'] = trim($_POST['name']);
 
-            $query = "insert into categories(category) values(:category)";
+            $query = "insert into categories(name) values(:name)";
             db_query($query, $values);
-            message("category created successfully");
+            message("name created successfully");
             redirect('manager/categories');
 
         }
     }
 } else
+ /*-- ---------EDIT ------------ --*/
+
     if ($action == 'edit') {
         $query = "select * from categories where id = :id limit 1";
         $row = db_query_one($query, ['id' => $id]);
@@ -34,68 +37,54 @@ if ($action == 'add') {
             $errors = [];
 
             //data validation
-            if (empty($_POST["category"])) {
-                $errors['category'] = "a category is required";
+            if (empty($_POST["name"])) {
+                $errors['name'] = "a name is required";
             } else {
-                if (!preg_match("/^[a-zA-Z \&\-]+$/", $_POST['category'])) {
-                    $errors['category'] = "a category can only have letters with no spaces";
+                if (!preg_match("/^[a-zA-Z \&\-]+$/", $_POST['name'])) {
+                    $errors['name'] = "a name can only have letters with no spaces";
 
                 }
             }
-
-
-
             if (empty($errors)) {
                 $values = [];
-                $values['category'] = trim($_POST['category']);
+                $values['name'] = trim($_POST['name']);
                 $values['id'] = $id;
 
-
-                $query = "update categories set  category = :category where id= :id limit 1";
+                $query = "update categories set  name = :name where id= :id limit 1";
 
                 db_query($query, $values);
-                message("category edited successfully");
+                message("name edited successfully");
                 redirect('manager/categories');
-
             }
         }
-
-
-
     } else
+/*-- ---------DELETE ------------ --*/
+
         if ($action == 'delete') {
+
             $query = "select * from categories where id = :id limit 1";
             $row = db_query_one($query, ['id' => $id]);
 
             if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
                 $errors = [];
 
-
-
                 if (empty($errors)) {
                     $values = [];
                     $values['id'] = $id;
 
-
                     $query = "delete from categories where id= :id limit 1";
-
-
-
                     db_query($query, $values);
-                    message("category deleted successfully");
+                    message("name deleted successfully");
                     redirect('manager/categories');
-
                 }
             }
         }
-
-
-
 ?>
 
 
 
 <?php require page('includes/manager-header') ?>
+<!-- ---------ADD ------------ -->
 
 <section class="manager-content" style="min-height:200px;">
     <?php if ($action == 'add'): ?>
@@ -104,34 +93,35 @@ if ($action == 'add') {
             <form action="" method="post">
                 <h3>Add new Category</h3>
 
-                <input class="form-control my-1" type="text" name="category" value="<?= set_value('category') ?>"
-                    placeholder="category name">
-                <?php if (!empty($errors['category'])): ?>
-                    <small class="text-danger"><?= $errors['category'] ?></small>
-                <?php endif; ?>
+                <div>
+                    <input class="form-control my-1" type="text" name="name" value="<?= set_value('name') ?>"
+                        placeholder="Category name">
+                    <?php if (!empty($errors['name'])): ?>
+                        <small class="text-danger"><?= $errors['name'] ?></small>
+                    <?php endif; ?>
 
+                </div>
                 <button class="btn bg-orange">Save</button>
                 <a href="<?= ROOT ?>/manager/categories">
                     <button type="button" class="float-end btn">Back</button>
                 </a>
             </form>
         </div>
+<!-- ---------EDIT ------------ -->
+
     <?php elseif ($action == 'edit'): ?>
-
-
-
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post">
                 <h3>Edit Category</h3>
 
                 <?php if (!empty($row)): ?>
 
-                    <input class="form-control my-1" type="text" name="category"
-                        value="<?= set_value('category', $row['category']) ?>" placeholder="category">
-                    <?php if (!empty($errors['category'])): ?>
-                        <small class="text-danger"><?= $errors['category'] ?></small>
+                    <input class="form-control my-1" type="text" name="name" value="<?= set_value('name', $row['name']) ?>"
+                        placeholder="name">
+                    <?php if (!empty($errors['name'])): ?>
+                        <small class="text-danger"><?= $errors['name'] ?></small>
                     <?php endif; ?>
-                   
+
                     <button class="btn bg-orange">Save</button>
                     <a href="<?= ROOT ?>/manager/categories">
                         <button type="button" class="float-end btn">Back</button>
@@ -144,6 +134,8 @@ if ($action == 'add') {
                 <?php endif; ?>
             </form>
         </div>
+ <!-- ---------DELETE ------------ -->
+
     <?php elseif ($action == 'delete'): ?>
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post">
@@ -152,10 +144,10 @@ if ($action == 'add') {
                 <?php if (!empty($row)): ?>
 
                     <div class="form-control my-1">
-                        <?= set_value('category', $row['category']) ?>
+                        <?= set_value('name', $row['name']) ?>
                     </div>
-                    <?php if (!empty($errors['category'])): ?>
-                        <small class="text-danger"><?= $errors['category'] ?></small>
+                    <?php if (!empty($errors['name'])): ?>
+                        <small class="text-danger"><?= $errors['name'] ?></small>
                     <?php endif; ?>
 
                     <button class="btn bg-danger">Delete</button>
@@ -172,18 +164,41 @@ if ($action == 'add') {
         </div>
     <?php else: ?>
         <?php
-        $query = "select * from categories order by id desc ";
-        $rows = db_query($query);
-        ?>
+        $searchTerm = trim($_GET['search'] ?? '');
+        $rows = [];
+        $errors = [];
+        $params = [];
 
+        $query = "select * from categories";
+        if (isset($_GET['submit_search'])) {
+            if (!empty($searchTerm)) {
+                $query .= " where name LIKE :searchTerm ";
+                $params = ['searchTerm' => "%$searchTerm%"];
+            } else {
+                $errors['search'] = "Search term is required.";
+            }
+        }
+        $rows = db_query($query, $params);
+
+        ?>
+        <!-- Search Form -->
+        <form action="" method="get" class="search-form">
+            <div class="form-group">
+                <input class="form-control m-1" type="text" name="search" placeholder="Search categories by name"
+                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                <button class="btn m-1" type="submit" name="submit_search">Search</button>
+            </div>
+            <?php if (!empty($errors['search'])): ?>
+                <p class="text-danger"><?= $errors['search'] ?></p>
+            <?php endif; ?>
+        </form>
 
         <h3>Categories
             <a href="<?= ROOT ?>/manager/categories/add">
-
                 <button class=" float-end btn bg-purpule">Add new</button>
             </a>
         </h3>
-        <table class="table">
+        <table class="table text-center">
             <tr>
                 <th>ID</th>
                 <th>Category</th>
@@ -193,7 +208,7 @@ if ($action == 'add') {
                 <?php foreach ($rows as $row): ?>
                     <tr>
                         <td><?= $row['id'] ?></th>
-                        <td><?= $row['category'] ?></td>
+                        <td><?= $row['name'] ?></td>
 
                         <td>
                             <a href="<?= ROOT ?>/manager/categories/edit/<?= $row['id'] ?>">
@@ -211,8 +226,14 @@ if ($action == 'add') {
                         </td>
                     </tr>
                 <?php endforeach ?>
-            <?php endif; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4">
+                        <p class="text-danger text-center">No categories found.</p>
 
+                    </td>
+                </tr>
+            <?php endif; ?>
         </table>
 
     <?php endif; ?>

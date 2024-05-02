@@ -1,9 +1,8 @@
 <?php require page('includes/header') ?>
 
-<div class="section-title">Searched for <?=$_GET['find']?> </div>
+<div class="section-title">Searched for <?= $_GET['find'] ?> </div>
 
 <section class="content">
-
     <?php
     $title = $_GET['find'] ?? null;
     if (!empty($title)) {
@@ -21,4 +20,4 @@
         <div class="m-2">No songs found</div>
     <?php endif; ?>
 </section>
-    <?php require page('includes/footer') ?>
+<?php require page('includes/footer') ?>

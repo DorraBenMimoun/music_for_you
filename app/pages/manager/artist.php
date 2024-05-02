@@ -42,6 +42,9 @@
                <div class="text-danger" >No song found for this Artist.</div> 
 
             <?php endif; ?>
+            <a href="<?= ROOT ?>/manager/artists">
+                        <button type="button" class="float-end btn">Back</button>
+                    </a>
         </div>
 
     </div>

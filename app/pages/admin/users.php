@@ -1,4 +1,5 @@
 <?php
+ /*-- ---------ADD ------------ --*/
 
 if ($action == 'add') {
 
@@ -20,6 +21,13 @@ if ($action == 'add') {
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = "email is not valid";
 
+            } else {
+                // Vérifier si l'email existe déjà dans la base de données
+                $query = "select * from users where email = :email";
+                $existingEmail = db_query_one($query, ['email' => trim($_POST['email'])]);
+                if ($existingEmail) {
+                    $errors['email'] = "This email is already registered";
+                }
             }
         }
         if (empty($_POST["password"])) {
@@ -55,13 +63,18 @@ if ($action == 'add') {
         }
     }
 } else
+ /*-- ---------EDIT ------------ --*/
+
     if ($action == 'edit') {
         $query = "select * from users where id = :id limit 1";
         $row = db_query_one($query, ['id' => $id]);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
             $errors = [];
-
+            if ($row['id'] == 1) {
+                if ($_POST['role'] == "manager")
+                    $errors['role'] = "The main admin role can not be edited";
+            }
             //data validation
             if (empty($_POST["username"])) {
                 $errors['username'] = "a username is required";
@@ -77,6 +90,13 @@ if ($action == 'add') {
                 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                     $errors['email'] = "email is not valid";
 
+                } else if ($row['email'] != $_POST['email']) {
+                    // Vérifier si l'email existe déjà dans la base de données
+                    $query = "select * from users where email = :email";
+                    $existingEmail = db_query_one($query, ['email' => trim($_POST['email'])]);
+                    if ($existingEmail) {
+                        $errors['email'] = "This email is already registered";
+                    }
                 }
             }
             if (!empty($_POST["password"])) {
@@ -86,7 +106,6 @@ if ($action == 'add') {
                 } else {
                     if (strlen($_POST['password']) < 8) {
                         $errors['password'] = "password must be 8 character or more";
-
                     }
                 }
             }
@@ -112,13 +131,11 @@ if ($action == 'add') {
                 db_query($query, $values);
                 message("user edited successfully");
                 redirect('admin/users');
-
             }
         }
-
-
-
     } else
+     /*-- ---------DELETE ------------ --*/
+
         if ($action == 'delete') {
             $query = "select * from users where id = :id limit 1";
             $row = db_query_one($query, ['id' => $id]);
@@ -130,31 +147,23 @@ if ($action == 'add') {
                     $errors['username'] = "The main admin can not be deleted";
                 }
 
-
                 if (empty($errors)) {
                     $values = [];
                     $values['id'] = $id;
 
-
                     $query = "delete from users where id= :id limit 1";
-
-
 
                     db_query($query, $values);
                     message("user deleted successfully");
                     redirect('admin/users');
-
                 }
             }
         }
-
-
-
 ?>
 
 
-
 <?php require page('includes/admin-header') ?>
+    <!-- ---------ADD ------------ -->
 
 <section class="admin-content" style="min-height:200px;">
     <?php if ($action == 'add'): ?>
@@ -191,15 +200,14 @@ if ($action == 'add') {
                     value="<?= set_value('retype_password') ?>" placeholder="Retype Password">
 
                 <button class="btn bg-orange">Save</button>
-                <a href="<?= ROOT ?>/admin/users">
+                <a href="<?= ROOT ?>/admin">
                     <button type="button" class="float-end btn">Back</button>
                 </a>
             </form>
         </div>
+        <!-- ---------EDIT ------------ -->
+
     <?php elseif ($action == 'edit'): ?>
-
-
-
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post">
                 <h3>Edit User</h3>
@@ -236,17 +244,19 @@ if ($action == 'add') {
                         value="<?= set_value('retype_password') ?>" placeholder="Retype Password">
 
                     <button class="btn bg-orange">Save</button>
-                    <a href="<?= ROOT ?>/admin/users">
+                    <a href="<?= ROOT ?>/admin">
                         <button type="button" class="float-end btn">Back</button>
                     </a>
                 <?php else: ?>
                     <div class="alert">That record was not found</div>
-                    <a href="<?= ROOT ?>/admin/users">
+                    <a href="<?= ROOT ?>/admin">
                         <button type="button" class="float-end btn">Back</button>
                     </a>
                 <?php endif; ?>
             </form>
         </div>
+<!-- ---------DELETE ------------ -->
+
     <?php elseif ($action == 'delete'): ?>
         <div class="" style="max-width:500px; margin:auto;">
             <form action="" method="post">
@@ -254,27 +264,26 @@ if ($action == 'add') {
 
                 <?php if (!empty($row)): ?>
 
-                    <div class="form-control my-1" > 
-                        <?= set_value('username', $row['username']) ?> 
+                    <div class="form-control my-1">
+                        <?= set_value('username', $row['username']) ?>
                     </div>
                     <?php if (!empty($errors['username'])): ?>
                         <small class="text-danger"><?= $errors['username'] ?></small>
                     <?php endif; ?>
-                    <div class="form-control my-1" >
-                         <?= set_value('email', $row['email']) ?>
-                       </div>
-                       <div class="form-control my-1" >
-                         <?= set_value('role', $row['role']) ?>
-                       </div>
-                   
-                   
+                    <div class="form-control my-1">
+                        <?= set_value('email', $row['email']) ?>
+                    </div>
+                    <div class="form-control my-1">
+                        <?= set_value('role', $row['role']) ?>
+                    </div>
+
                     <button class="btn bg-danger">Delete</button>
-                    <a href="<?= ROOT ?>/admin/users">
+                    <a href="<?= ROOT ?>/admin">
                         <button type="button" class="float-end btn">Back</button>
                     </a>
                 <?php else: ?>
                     <div class="alert">That record was not found</div>
-                    <a href="<?= ROOT ?>/admin/users">
+                    <a href="<?= ROOT ?>/admin">
                         <button type="button" class="float-end btn">Back</button>
                     </a>
                 <?php endif; ?>
@@ -285,15 +294,13 @@ if ($action == 'add') {
         $query = "select * from users where role != 'user' order by id desc ";
         $rows = db_query($query);
         ?>
-
-
         <h3>Users
             <a href="<?= ROOT ?>/admin/users/add">
 
                 <button class=" float-end btn bg-purpule">Add new</button>
             </a>
         </h3>
-        <table class="table">
+        <table class="table text-center">
             <tr>
                 <th>ID</th>
                 <th>Username</th>
@@ -327,13 +334,7 @@ if ($action == 'add') {
                     </tr>
                 <?php endforeach ?>
             <?php endif; ?>
-
         </table>
-
     <?php endif; ?>
-
-
-
-
 </section>
 <?php require page('includes/admin-footer'); ?>

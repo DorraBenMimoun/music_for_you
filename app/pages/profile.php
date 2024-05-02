@@ -1,6 +1,5 @@
-<?php require page('includes/header'); ?>
-
-
+<?php ob_start();
+require page('includes/header'); ?>
 <?php
 $id = $URL[1] ?? null;
 
@@ -34,17 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
         } else {
             if (strlen($_POST['password']) < 8) {
                 $errors['password'] = "password must be 8 character or more";
-
             }
         }
     }
- 
+
     if (empty($errors)) {
         $values = [];
         $values['username'] = trim($_POST['username']);
         $values['email'] = trim($_POST['email']);
         $values['id'] = $id;
-
 
         $query = "update users set email = :email, username = :username where id= :id limit 1";
 
@@ -54,19 +51,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
         }
 
         db_query($query, $values);
-        message("user edited successfully");
-        
-
+        //$_SESSION['USER']['name']= $values['username'];
+        //echo $_SESSION['USER']['name'];
+        //echo user('username');
+        $success = "Profile edited successfully.";
+        //redirect('home');
 
     }
-    
 }
-
-
-
-
 ?>
 <div class="" style="max-width:500px; margin:auto;">
+    <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger">
+            <?php foreach ($errors as $error): ?>
+                <p><?= $error ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php elseif (!empty($success)): ?>
+        <div class="alert alert-success">
+            <?= $success ?>
+        </div>
+    <?php endif; ?>
     <form action="" method="post">
         <h3>Edit User</h3>
 
@@ -82,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
             <?php if (!empty($errors['email'])): ?>
                 <small class="text-danger"><?= $errors['email'] ?></small>
             <?php endif; ?>
-           
+
             <input class="form-control my-1" type="password" name="password"
                 placeholder="Password (leave empty to keep old one)" value="<?= set_value('password') ?>"
                 placeholder="Password">
@@ -93,12 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $row) {
                 value="<?= set_value('retype_password') ?>" placeholder="Retype Password">
 
             <button class="btn bg-orange">Save</button>
-            <a href="<?= ROOT ?>/admin/users">
+            <a href="<?= ROOT ?>/musics">
                 <button type="button" class="float-end btn">Back</button>
             </a>
         <?php else: ?>
             <div class="alert">That record was not found</div>
-            <a href="<?= ROOT ?>/admin/users">
+            <a href="<?= ROOT ?>/musics">
                 <button type="button" class="float-end btn">Back</button>
             </a>
         <?php endif; ?>

@@ -25,9 +25,5 @@
         <?php else: ?>
             <div class="m-2" >No songs found</div>
         <?php endif; ?>
-
-        
-
     </section>
-
     <?php require page('includes/footer'); ?>

@@ -27,5 +27,4 @@ else
     exit();
     }
 
-echo "song not found";
 }

@@ -4,25 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=ucfirst($URL[0])?> -Music For You</title>
+    <title><?= ucfirst($URL[0]) ?> -Music For You</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
 </head>
 
 <body>
     <style>
-        header a{
-            color:white;
+        header a {
+            color: white;
         }
-        .dropdown-list{
+
+        .dropdown-list {
             background-color: #444;
         }
     </style>
 
-    <header style="background-color:#3e344e; color:white;" >
+    <header style="background-color:#3e344e; color:white;">
         <div class="logo-holder">
-            <a href=""><img src="<?=ROOT?>/assets/images/logo.jpg" alt=""></a></a>
+            <a href=""><img src="<?= ROOT ?>/assets/images/logo.jpg" alt=""></a></a>
         </div>
         <div class="header-div">
             <div class="main-title">
@@ -43,18 +44,21 @@
                 </div>
             </div>
             <div class="main-nav float-end m-5 ">
-                <div class="nav-item"><a href="<?=ROOT?>/manager">Dashboard</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/manager/musics">Musics</a></div>
-                <div class="nav-item"><a href="<?=ROOT?>/manager/categories">Categories</a></div>
-          
-                <div class="nav-item"><a href="<?=ROOT?>/manager/artists">Artists</a></div>
-                <div class="nav-item dropdown">
-                    <a href="#">Hi,<?=user('username')?></a>
-                    <div class="dropdown-list hide">
-                        <div class="nav-item"><a href="<?=ROOT?>">Website</a></div>
-                        <div class="nav-item"><a href="<?=ROOT?>/logout">Logout</a></div>
+                <div class="nav-item"><a href="<?= ROOT ?>/manager">Dashboard</a></div>
+                <div class="nav-item"><a href="<?= ROOT ?>/manager/musics">Musics</a></div>
+                <div class="nav-item"><a href="<?= ROOT ?>/manager/categories">Categories</a></div>
 
-                    </div>
+                <div class="nav-item"><a href="<?= ROOT ?>/manager/artists">Artists</a></div>
+          
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Hi,<?= user('username') ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?= ROOT ?>">Website</a></li>
+                        <li><a class="dropdown-item" href="<?= ROOT ?>/logout">Logout</a></li>
+                    </ul>
                 </div>
 
 
@@ -62,6 +66,6 @@
         </div>
     </header>
 
-<?php if(message()):?>
-    <div class="alert" ><?=message('',true)?></div>
-<?php endif;?>
+    <?php if (message()): ?>
+        <div class="alert"><?= message('', true) ?></div>
+    <?php endif; ?>

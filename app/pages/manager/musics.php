@@ -22,15 +22,14 @@ if ($action == 'add') {
         //image
         if (!empty($_FILES['image']['name'])) {
 
-            $folder = "uploads/";
+            $folder = "uploads/musics/images/";
             if (!file_exists($folder)) {
-                mkdir($folder, 077, true);
+                mkdir($folder, 0777, true);
                 file_put_contents($folder . "index.php", "");
             }
             $allowed = ['images/jpeg', 'images/png'];
             //&& in_array($_FILES['image']['type'], $allowed)
             if ($_FILES['image']['error'] == 0) {
-                echo "bonjour";
 
                 $destination_image = $folder . $_FILES['image']['name'];
 
@@ -47,9 +46,9 @@ if ($action == 'add') {
         //file
         if (!empty($_FILES['file']['name'])) {
 
-            $folder = "uploads/";
+            $folder = "uploads/musics/files/";
             if (!file_exists($folder)) {
-                mkdir($folder, 077, true);
+                mkdir($folder, 0777, true);
                 file_put_contents($folder . "index.php", "");
 
             }
@@ -125,9 +124,9 @@ if ($action == 'add') {
 
             if (!empty($_FILES['image']['name'])) {
 
-                $folder = "uploads/";
+                $folder = "uploads/musics/images/";
                 if (!file_exists($folder)) {
-                    mkdir($folder, 077, true);
+                    mkdir($folder, 0777, true);
                     file_put_contents($folder . "index.php", "");
 
                 }
@@ -139,19 +138,19 @@ if ($action == 'add') {
 
                     move_uploaded_file($_FILES['image']['tmp_name'], $destination_image);
                     //delete old file
-                    if (file_exists($row['image'])) {
+                   /* if (file_exists($row['image'])) {
                         unlink($row['image']);
-                    }
+                    }*/
                 } else {
-                    $errors['name'] = "Image no valid. Allowed types are " . implode(",", $allowed);
+                    $errors['image'] = "Image no valid. Allowed types are " . implode(",", $allowed);
                 }
             }
             //audio file
             if (!empty($_FILES['file']['name'])) {
 
-                $folder = "uploads/";
+                $folder = "uploads/musics/files/";
                 if (!file_exists($folder)) {
-                    mkdir($folder, 077, true);
+                    mkdir($folder, 0777, true);
                     file_put_contents($folder . "index.php", "");
                 }
                 $allowed = ['audio/mpeg'];
@@ -267,14 +266,14 @@ if ($action == 'add') {
                 <?php endif; ?>
 
                 <?php
-                $query = "select * from categories order by category asc";
+                $query = "select * from categories order by name asc";
                 $categories = db_query($query);
                 ?>
                 <select name="category_id" id="category_id" class="form-select my-1">
                     <option value="">--Select Category--</option>
                     <?php if (!empty($categories)): ?>
                         <?php foreach ($categories as $cat): ?>
-                            <option <?= set_select('category_id', $cat['id']) ?> value="<?= $cat['id'] ?>"><?= $cat['category'] ?>
+                            <option <?= set_select('category_id', $cat['id']) ?> value="<?= $cat['id'] ?>"><?= $cat['name'] ?>
                             </option>
                         <?php endforeach ?>
                     <?php endif ?>
@@ -342,7 +341,7 @@ if ($action == 'add') {
                     <?php endif; ?>
 
                     <?php
-                    $query = "select * from categories order by category asc";
+                    $query = "select * from categories order by name asc";
                     $categories = db_query($query);
                     ?>
                     <select name="category_id" id="category_id" class="form-select my-1">
@@ -350,7 +349,7 @@ if ($action == 'add') {
                         <?php if (!empty($categories)): ?>
                             <?php foreach ($categories as $cat): ?>
                                 <option <?= set_select('category_id', $cat['id'], $row['category_id']) ?> value="<?= $cat['id'] ?>">
-                                    <?= $cat['category'] ?>
+                                    <?= $cat['name'] ?>
                                 </option>
                             <?php endforeach ?>
                         <?php endif ?>
@@ -442,33 +441,71 @@ if ($action == 'add') {
         </div>
 
     <?php else: ?>
-        <div class="search">
-            <form action="<?= ROOT ?>/manager/musics" method="get">
-                <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Search for music" name="find">
-                    <button class="btn">Search</button>
-                </div>
-            </form>
-        </div>
+      
 
         <?php
-        $query = "select * from musics";
+        $query = "select musics.*, artists.name AS artist_name, categories.name AS category_name FROM musics 
+                 LEFT JOIN artists ON musics.artist_id = artists.id 
+                 LEFT JOIN categories ON musics.category_id = categories.id";
+
         $params = [];
+        $searchTerm = $_GET['search_term'] ?? '';
+        $searchType = $_GET['search_type'] ?? '';
+        $errors = [];
+        if (isset($_GET['submit_search'])) {
 
-        $title = $_GET['find'] ?? null;
-        if (!empty($title)) {
-            $query .= " WHERE title LIKE :title";
-            $params['title'] = "%$title%";
+        if (!empty($searchTerm)&& !empty($searchType)) {
+            switch ($searchType) {
+                case 'title':
+                    $query .= " WHERE musics.title LIKE :searchTerm";
+                    break;
+                case 'artist':
+                    $query .= " WHERE artists.name LIKE :searchTerm";
+                    break;
+                case 'category':
+                    $query .= " WHERE categories.name LIKE :searchTerm";
+                    break;
+            }
+            $params['searchTerm'] = "%$searchTerm%";
         }
+        else
+        {
+            $errors['search'] = "Search term and type are required.";
 
+        }
+        
+    }
+   
         $rows = db_query($query, $params);
+    
+
         ?>
+          <div class="search">
+            <form action="<?= ROOT ?>/manager/musics" method="get">
+                <div class="form-group">
+                    <input class="form-control m-1" type="text" placeholder="Search for music" name="search_term"
+                        value="<?= htmlspecialchars($_GET['search_term'] ?? '') ?>">
+                    <select name="search_type" class="form-select m-1">
+                    <option value="">--Search by--</option>
+
+                        <option value="title">Title</option>
+                        <option value="artist">Artist</option>
+                        <option value="category">Category</option>
+                    </select>
+                    <button type="submit" class="btn"name="submit_search">Search</button>
+                </div>
+                <?php if (!empty($errors['search'])): ?>
+            <p class="text-danger"><?= $errors['search'] ?></p>
+        <?php endif; ?>
+            </form>
+
+        </div>
         <h3>Musics
             <a href="<?= ROOT ?>/manager/musics/add">
                 <button class=" float-end btn bg-purpule">Add new</button>
             </a>
         </h3>
-        <table class="table">
+        <table class="table text-center">
             <tr>
                 <th>ID</th>
                 <th>Title</th>
@@ -484,12 +521,10 @@ if ($action == 'add') {
                     <tr>
                         <td><?= $row['id'] ?></th>
                         <td><?= $row['title'] ?></td>
-                        <td><img src="<?= ROOT ?>/<?= $row['image'] ?>" alt="" style="width:100px; height:100px; object-fit:cover;">
-                        </td>
+                        <td><img src="<?= ROOT ?>/<?= $row['image'] ?>" alt="" style="width:100px; height:100px; object-fit:cover;"></td>
                         <td><?= get_category($row['category_id']) ?></td>
                         <td><?= get_artist($row['artist_id']) ?></td>
                         <td><?= $row['duration'] ?></td>
-
                         <td>
                             <audio controls>
                                 <source src="<?= ROOT ?>/<?= $row['file'] ?>" type="audio/mpeg">
@@ -512,7 +547,7 @@ if ($action == 'add') {
                 <?php endforeach ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="8">No music found</td>
+                    <td colspan="8" class="text-danger" >No music found</td>
                 </tr>
             <?php endif; ?>
         </table>

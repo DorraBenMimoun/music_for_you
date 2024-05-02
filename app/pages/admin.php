@@ -1,5 +1,6 @@
 
 <?php
+ob_start();
 
 if (!is_admin()) {
     message("Only admins can access the admin page");
