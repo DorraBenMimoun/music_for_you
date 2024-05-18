@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <?php else: ?>
-                    <div class="nav-item"  ><a href="<?=ROOT?>/login">Login</a></div>
+                    <div class="nav-item"  ><a href="<?=ROOT?>/login2">Login</a></div>
 
                 <?php endif;?>
 

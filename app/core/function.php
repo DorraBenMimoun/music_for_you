@@ -16,9 +16,22 @@ function page($file)
 function db_connect()
 {
     // Connect to database
-    $string = "mysql:hostname=localhost;dbname=music_for_you";
+    /*$string = "mysql:hostname=localhost;dbname=music_for_you";
     $con = new PDO($string, "root", "");
-    return $con;
+    return $con;*/
+
+    try {
+        // Connect to database
+        $string = "mysql:host=localhost;dbname=music_for_you";
+        $con = new PDO($string, "root", "");
+        // Set PDO to throw exceptions
+        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $con;
+    } catch (PDOException $e) {
+        // Handle connection error
+        echo "Connection failed: " . $e->getMessage();
+        exit; // Stop script execution
+    }
 }
 
 function db_query($query, $data = array())
@@ -110,7 +123,7 @@ function get_date($date)
 
 function logged_in()
 {
-
+    
     if(!empty($_SESSION['USER']) && is_array($_SESSION['USER']))
     {
         return true;
@@ -161,6 +174,8 @@ function authenticate($row)
 {
 
     $_SESSION['USER'] = $row;
+
+
 }
 
 function str_to_url($url)

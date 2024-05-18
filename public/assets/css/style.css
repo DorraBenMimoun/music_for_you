@@ -1,4 +1,27 @@
 
+@font-face {
+    font-family: 'Jeju';
+    src: url('../Font/JejuGothic Regular.ttf');
+}
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Maven+Pro:wght@400..900&display=swap');
+
+:root {
+    --color_light: #d2ecf3;
+    --color_normal: #72c2db;
+    --color_dark: #132f44;
+    --color_white: #f8fbff;
+    --font_Jeju: 'Jeju';
+    --font_JetBrain: "JetBrains Mono", monospace;
+    --font_Marven: "Marven Pro", sans-serif;
+    
+}
+
+::selection {
+    background: var(--color_dark);
+    color: var(--color_normal);
+}
 * {
     box-sizing: border-box;
 }
@@ -198,3 +221,131 @@ header .socials{
         flex-direction: column;
     }
 }
+
+
+
+
+/* SONG PAGE */
+
+.content.song-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-song-page {
+    height: auto;
+    width: auto;
+    background: var(--color_normal);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 10px 10px;
+    box-shadow: 0 0 20px #132f4438;
+}
+
+
+.section-title h1{
+    font-family: var(--font_JetBrain);
+    font-weight: bold;
+    letter-spacing: 0px;
+    font-size: 48px;
+    color: var(--color_dark)
+}
+
+.music-card-full {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.music-card-full .card-title {
+    font-family: var(--font_Marven);
+    font-weight: normal;
+    letter-spacing: 2px;
+    font-size: 44px;
+    color: var(--color_dark);
+    margin-bottom: -10px;
+}
+
+.music-card-full .card-subtitle {
+    font-size: 20px;
+    color: #132f44de;
+    margin-bottom: 10px;
+}
+.card-song-page img {
+    width: 100%;
+    border-radius: 50%;
+    animation: vynil_turn linear 16s infinite;
+    margin-bottom: 10px;   
+    aspect-ratio: 4 / 4;
+    box-shadow: 0 0 4px #00000073;
+    user-select: none;
+}
+
+.container-song-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.container-song-img .overlay {
+    position: absolute;
+    background: var(--color_normal);
+    width: 30%;
+    height: 30%;
+    z-index: 100;
+    border-radius: 50%;
+    top: 35%;
+    left: 35%;
+    box-shadow: inset 0 0 8px #0000006e;
+}
+.card-song-page .card-content {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-content .audio-player {
+    width: 100%;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+.btn_Download  {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    user-select: none;
+}
+.btn_Download {
+    color: var(--color_light) !important;
+    transition: .3s;
+    padding:  6px 44px;
+    background: var(--color_dark);
+    border-radius: 44px;
+    transition: .3s;
+    border: none;
+    font-size: 26px;
+    font-family: var(--font_Jeju);
+    box-shadow: 0 3px 4px #132f4444;
+}
+.btn_Download:hover {
+    opacity: .8;
+    transform: translateY(-4px);
+}
+.text {
+    font-size: 24px;
+    margin: 15px 0;
+}
+/* SONG PAGE */

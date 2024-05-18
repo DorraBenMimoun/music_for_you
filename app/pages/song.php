@@ -2,6 +2,8 @@
 ob_start();
 
 require page('includes/header'); ?>
+<section class="content song-page">
+    <div class="card-song-page">
 <center>
     <div class="section-title">Now Playing</div>
 </center>
@@ -21,5 +23,6 @@ require page('includes/header'); ?>
     <?php endif; ?>
 
 </section>
-
+</div>
+</section>
 <?php require page('includes/footer'); ?>

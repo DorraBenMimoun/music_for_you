@@ -42,17 +42,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card-subtitle">By : <?= esc(get_artist($row['artist_id'])) ?></div>
 
     <div style="overflow:hidden;">
-        <a href="<?= ROOT ?>/song/<?= $row['slug'] ?>"> <img src="<?= ROOT ?>/<?= $row['image'] ?>" alt=""></a>
+    <div class="container-song-img">
+            <a href="<?= ROOT ?>/song/<?= $row['slug'] ?>"><img src="<?= ROOT ?>/<?= $row['image'] ?>" alt=""></a>
+            <span class="overlay"></span>
+        </div>
+
     </div>
     <div class="card-content">
-        <audio controls style="width:100%">
+        <audio controls class="audio-player">
             <source src="<?= ROOT ?>/<?= $row['file'] ?>" type="audio/mpeg">
+
         </audio>
 
-        <div>Date added: <?= get_date($row['date']) ?></div>
+        <div class="text">Date added: <?= get_date($row['date']) ?></div>
 
         <a href="<?= ROOT ?>/download/<?= $row['slug'] ?>">
-            <button class="btn bg-purpule">Download</button>
+            <button class="btn_Download">Download</button>
         </a>
         <!-- Formulaire d'ajout à la playlist -->
         <?php if (!is_admin() && !is_manager()): ?>
@@ -68,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form action="" method="post">
 
 
-                    <div style="display: flex; align-items: center;">
+                    <div style="margin-top: 20px; display: flex; align-items: center; gap: 20px; flex-direction: column;">
 
                         <select name="playlist_id" class="form-select">
                             <option value="">Select playlist</option>
@@ -81,15 +86,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         </select>
 
-                        <button type="submit" class="btn bg-orange mx-1">Ajouter à la playlist</button>
+                        <button type="submit" class="btn_download">Ajouter à la playlist</button>
 
                     </div>
                 </form>
             <?php else: ?>
-                <p> No playlist available. Please create one</p>
+                <p class="text"> No playlist available. Please create one</p>
                 <a href="<?= ROOT ?>/user/playlists/add">
 
-                    <button class=" float-end btn bg-purpule">Add new</button>
+                    <button class=" btn_Download">Add new</button>
                 </a>
 
             <?php endif ?>

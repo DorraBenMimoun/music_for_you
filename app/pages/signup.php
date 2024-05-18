@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $query1 = "select * from users where email = :email";
         $row = db_query_one($query1, $value);
         authenticate($row);
-        redirect('home');
+        redirect('/home');
     }
 }
 ?>

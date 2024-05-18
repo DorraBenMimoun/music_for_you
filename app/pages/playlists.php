@@ -10,7 +10,7 @@
     <h3>Playlists
         <a href="<?= ROOT ?>/user/playlists/add">
 
-            <button class=" float-end btn bg-purpule">Add new</button>
+            <button class=" float-end btn bg-purpule">Add my own playlist</button>
         </a>
     </h3>
     <table class="table text-center">

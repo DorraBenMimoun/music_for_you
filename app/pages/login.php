@@ -38,12 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     style="width: 150px; border-radius: 50%; border: solid thin #ccc">
             </center>
             <h2>Login</h2>
+    
+            
             <input value="<?= set_value('email') ?>" class=" my-1 form-control " type="email" name="email"
                 placeholder="Email">
             <input value="<?= set_value('password') ?>" class=" my-1 form-control" type="password" name="password"
                 placeholder="Password">
             <!-- Sign Up link -->
-            <p class="text-center">Don't have an account? <a href="<?= ROOT ?>/signup">Sign Up</a></p>
+            <p class="text-center">Don't have an account? <a href="<?= ROOT ?>/signup3">Sign Up</a></p>
             <button class=" my-1 btn bg-blue">Login</button>
         </form>
     </div>
