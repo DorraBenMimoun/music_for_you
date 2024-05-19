@@ -32,7 +32,7 @@ $rows = db_query($query, $params);
 ?>
 <div class="section-title">Music</div>
 <div class="search">
-    <form action="<?= ROOT ?>/musics" method="get">
+    <form action="<?= ROOT ?>/musics" class="search-bar-container"  method="get">
         <div class="form-group">
             <input class="form-control m-1" type="text" placeholder="Search for music" name="search_term"
                 value="<?= htmlspecialchars($_GET['search_term'] ?? '') ?>">
@@ -43,7 +43,7 @@ $rows = db_query($query, $params);
                 <option value="artist">Artist</option>
                 <option value="category">Category</option>
             </select>
-            <button type="submit" class="btn" name="submit_search">Search</button>
+            <button type="submit" class="btnSearch" name="submit_search"><i class='bx bx-search'></i>Search</button>
         </div>
         <?php if (!empty($errors['search'])): ?>
             <p class="text-danger"><?= $errors['search'] ?></p>

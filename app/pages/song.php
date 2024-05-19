@@ -8,7 +8,6 @@ require page('includes/header'); ?>
     <div class="section-title">Now Playing</div>
 </center>
 
-<section class="content">
 
     <?php
     $slug = $URL[1] ?? null;
@@ -22,7 +21,6 @@ require page('includes/header'); ?>
 
     <?php endif; ?>
 
-</section>
 </div>
 </section>
 <?php require page('includes/footer'); ?>

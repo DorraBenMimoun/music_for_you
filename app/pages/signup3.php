@@ -20,7 +20,7 @@ unset($_SESSION['errors']);
     <section class="content">
     <div class="login-holder">
         
-        <form action="../app/controller/userController.php" action="" method="post">
+        <form action="../app/controller/userController.php"  method="post">
             <center>
                 <img src="<?= ROOT ?>/assets/images/logo.jpg" alt="" style="width: 150px; border-radius: 50%; border: solid thin #ccc">
             </center>

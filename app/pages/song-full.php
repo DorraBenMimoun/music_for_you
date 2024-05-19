@@ -86,15 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         </select>
 
-                        <button type="submit" class="btn_download">Ajouter à la playlist</button>
+                        <button type="submit" class="btn_Download">Ajouter à la playlist</button>
 
                     </div>
                 </form>
             <?php else: ?>
                 <p class="text"> No playlist available. Please create one</p>
                 <a href="<?= ROOT ?>/user/playlists/add">
-
-                    <button class=" btn_Download">Add new</button>
+                    <button class="btn_Download">Add new</button>
                 </a>
 
             <?php endif ?>

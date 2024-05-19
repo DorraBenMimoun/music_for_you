@@ -14,13 +14,6 @@ body {
     color: #333;
 }
 
-/* Header and footer styling */
-header, footer {
-    background-color: #222;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-}
 
 /* Main content section */
 .about-section {
@@ -53,21 +46,6 @@ li {
     margin-bottom: 10px;
 }
 
-/* Button and link styles */
-.btn {
-    display: inline-block;
-    background: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 10px 0;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

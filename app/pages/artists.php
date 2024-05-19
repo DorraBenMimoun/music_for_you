@@ -22,18 +22,18 @@ $rows = db_query($query, $params);
 ?>
 
 <!-- Search Form -->
-<form action="" method="get" class="search-form">
+<form action="" method="get" class="search-bar-container" >
     <div class="form-group">
         <input class="form-control m-1" type="text" name="search" placeholder="Search artists by name"
             value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-        <button class="btn m-1" type="submit" name="submit_search">Search</button>
+        <button class="btnSearch" type="submit" name="submit_search"><i class='bx bx-search'></i>Search</button>
     </div>
     <?php if (!empty($errors['search'])): ?>
         <p class="text-danger"><?= $errors['search'] ?></p>
     <?php endif; ?>
 </form>
 
-<section class="content">
+<section class="content artist_card">
 
     <?php if (!empty($rows)): ?>
         <?php foreach ($rows as $row): ?>

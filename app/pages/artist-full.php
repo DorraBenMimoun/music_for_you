@@ -1,14 +1,17 @@
 <!-- start artist -->
-<div class="music-card-full" style="max-width: 800px; min-width:500px;">
+<div class="music-card-full" style="min-width:500px;">
 
     <h2 class="card-title"><?= esc($row['name']) ?></h2>
 
-    <div style="overflow:hidden;">
+    <div >
         <img src="<?= ROOT ?>/<?= $row['image'] ?>" alt="">
     </div>
     <div class="card-content">
+        <?php if(!empty($row['bio'])): ?>
         <label>Artist Bio : </label>
         <div><?= esc($row['bio']) ?></div>
+        <?php endif; ?>
+
         <div>Artist Songs : </div>
         <div style="display: flex; flex:flex-wrap; justify-content: center;">
 

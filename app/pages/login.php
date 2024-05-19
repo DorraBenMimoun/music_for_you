@@ -25,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 ?>
 
+<span id="none">
 <?php require page('includes/header'); ?>
-
+</span >
 <section class="content">
     <div class="login-holder">
         <?php if (message()): ?>
