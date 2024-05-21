@@ -10,7 +10,7 @@
         <?php endif; ?>
         <form action="../app/controller/userController.php" method="post">
             <center>
-                <img src="<?= ROOT ?>/assets/images/logo.jpg" alt=""
+                <img src="<?= ROOT ?>/assets/images/logo.png" alt=""
                     style="width: 150px; border-radius: 50%; border: solid thin #ccc">
             </center>
             <h2>Login</h2>

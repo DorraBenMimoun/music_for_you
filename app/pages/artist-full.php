@@ -24,7 +24,7 @@
             <?php if (!empty($rows)): ?>
 
                 <?php foreach ($rows as $row): ?>
-                    <?php include page('includes/song') ?>
+                    <?php include page('includes/artist-song') ?>
 
                 <?php endforeach; ?>
 

@@ -251,7 +251,7 @@ function esc($str)
     return nl2br(htmlspecialchars($str));
 }
 
-require_once 'C:\xampp\htdocs\music_for_you\vendor\autoload.php';
+// require_once 'C:\xampp\htdocs\music_for_you\vendor\autoload.php';
 function getAudioDuration($file) {
     $getID3 = new getID3;
     $fileInfo = $getID3->analyze($file);

@@ -1,6 +1,6 @@
 <?php require page('includes/header') ?>
 
-<section class="admin-content" style="min-height:200px;">
+<section class="admin-content" style="min-height:80vh!important;">
 
     <?php
     $query = "select * from playlists where visibilite like 'public'";

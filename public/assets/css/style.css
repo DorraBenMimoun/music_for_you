@@ -36,7 +36,6 @@ body {
     font-family: var(--font_Marven) !important;
     margin: 0px;
     padding: 0px;
-    background-color: var(--color_white) !important;
     overflow-X: hidden;
 }
 
@@ -458,13 +457,19 @@ footer .follow .social a:hover {
     overflow: hidden;
 }
 
+.card-subtitle{
+    text-overflow: ellipsis;
+    text-transform: none!important;
+ 
+}
+
 .text-content .card-subtitle p {
     font-family: var(--font_Marven);
-    text-transform: capitalize;
     color: #004e63;
     font-style: italic;
-    font-size: 18px;
-    line-height: 28px;
+    text-transform: none!important;
+    font-size: 18px!important;
+    line-height: 25px!important;
     margin: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -538,11 +543,11 @@ footer .follow .social a:hover {
 
 .content.artist_card .card-content .card-subtitle p {
     font-family: var(--font_Marven);
-    text-transform: capitalize;
+    text-transform: none;
     color: #033155;
     max-height: 100%;
     font-size: 18px;
-    line-height: 28px;
+    line-height: 25px;
     margin: 0;
     text-overflow: ellipsis;
     overflow: hidden;

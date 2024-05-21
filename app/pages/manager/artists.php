@@ -149,7 +149,7 @@ if ($action == 'add') {
 <?php require page('includes/manager-header') ?>
     <!-- ---------ADD ------------ -->
 
-<section class="manager-content" style="min-height:200px;">
+<section class="manager-content" style="min-height:80vh;">
     <?php if ($action == 'add'): ?>
 
         <div class="" style="max-width:500px; margin:auto;">

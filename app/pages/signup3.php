@@ -41,8 +41,8 @@ unset($_SESSION['errors']);
             <?php endif; ?>
             <input class="form-control my-1" type="password" name="retype_password" placeholder="Retype Password">
             <!-- Sign Up link -->
-            <p class="">I have an account <a href="<?= ROOT ?>/login">Login</a></p>
-            <button class=" my-1 btn bg-blue" type="submit" >Sign Up2</button>
+            <p class="">I have an account <a href="<?= ROOT ?>/login2">Login</a></p>
+            <button class=" my-1 btn bg-blue" type="submit" >Sign Up</button>
         </form>
     </div>
 </section>
